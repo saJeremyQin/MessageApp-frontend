@@ -28,26 +28,36 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axios from 'axios';
-    const messages = ref([
-        "first",
-        "second",
-        "Facts"
-    ]);
+import eventBus from "@/utils/eventBus";
 
-    onMounted(async () => { 
-        try {
-            const response = await axios.get("http://localhost:3000/messages");
-            messages.value = response.data;
-        } catch (error) {
-            if(error.response) {
-                console.error('Server responded with an error:', error.response.status);
-            } else if(error.request) {
-                console.error('No response received from the server');
-            } else {
-                console.error('Error in request setup:', error.message);
-            }
+const messages = ref([]);
+// doesn't work, Uncaught ReferenceError: Cannot access 'fetchData' before initialization
+// eventBus.on('update-messages', fetchData); 
+eventBus.on('update-messages', () => {
+    fetchData();
+});
+
+const fetchData = async() => {
+    const response = await axios.get("http://localhost:3000/messages");
+    messages.value = response.data;
+}
+
+onMounted(async () => { 
+    // this.$root.$on('update-messages', message => {
+    //     messages.push(message);
+    // })
+    try {
+      fetchData();
+    } catch (error) {
+        if(error.response) {
+            console.error('Server responded with an error:', error.response.status);
+        } else if(error.request) {
+            console.error('No response received from the server');
+        } else {
+            console.error('Error in request setup:', error.message);
         }
-    });
+    }
+});
 </script>
 
 <style scoped>

@@ -15,8 +15,15 @@
             <v-form @submit.prevent>
                 <v-text-field
                     label="Type here"
+                    v-model="messageBody"
                 ></v-text-field>
-                <v-btn type="submit" class="mt-2 ml-2 mb-2">Submit</v-btn>
+                <v-btn 
+                    type="submit" 
+                    class="mt-2 ml-2 mb-2" 
+                    @click="submit" 
+                >
+                    Submit
+                </v-btn>
             </v-form>
         </v-card>
         </v-col>
@@ -24,28 +31,23 @@
 </template>
 
 <script setup>
-// import { onMounted, ref } from "vue";
-// import axios from 'axios';
-//     const messages = ref([
-//         "first",
-//         "second",
-//         "Facts"
-//     ]);
+import { ref } from "vue";
+import axios from 'axios';
+import eventBus from "@/utils/eventBus";
+const messageBody = ref("");
 
-    // onMounted(async () => { 
-    //     try {
-    //         const response = await axios.get("http://localhost:3000/messages");
-    //         messages.value = response.data;
-    //     } catch (error) {
-    //         if(error.response) {
-    //             console.error('Server responded with an error:', error.response.status);
-    //         } else if(error.request) {
-    //             console.error('No response received from the server');
-    //         } else {
-    //             console.error('Error in request setup:', error.message);
-    //         }
-    //     }
-    // });
+const submit = () => {
+    axios.post("http://localhost:3000/messages", {message:messageBody.value}).then(
+        function (response) {
+            console.log(response.data);
+            eventBus.emit('update-messages');
+        }
+    ).catch (
+        function (error) {
+            console.log(error);
+        }
+    );
+}
 </script>
 
 <style scoped>
