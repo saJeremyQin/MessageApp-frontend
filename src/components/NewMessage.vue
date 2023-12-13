@@ -33,14 +33,14 @@
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
-import eventBus from "@/utils/eventBus";
+import storeState from "@/store";
 const messageBody = ref("");
 
 const submit = () => {
     axios.post("http://localhost:3000/messages", {message:messageBody.value}).then(
         function (response) {
             console.log(response.data);
-            eventBus.emit('update-messages');
+            storeState.messages.push(messageBody.value);
         }
     ).catch (
         function (error) {

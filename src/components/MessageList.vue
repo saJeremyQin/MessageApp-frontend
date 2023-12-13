@@ -13,7 +13,7 @@
                 ></v-toolbar>
                 <v-list>
                     <v-list-item 
-                        v-for="(message,index) in messages" 
+                        v-for="(message,index) in storeState.messages" 
                         :key="index"
                         class="v-list-item"
                     >
@@ -25,39 +25,31 @@
     </v-row>
 </template>
 
-<script setup>
-import { onMounted, ref } from "vue";
+<script>
+import { onMounted } from 'vue';
 import axios from 'axios';
-import eventBus from "@/utils/eventBus";
+import storeState from '@/store';
+export default {
+    setup () {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/messages');
+                storeState.messages = response.data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-const messages = ref([]);
-// doesn't work, Uncaught ReferenceError: Cannot access 'fetchData' before initialization
-// eventBus.on('update-messages', fetchData); 
-eventBus.on('update-messages', () => {
-    fetchData();
-});
+        onMounted(() => {
+            fetchData();        
+        });
 
-const fetchData = async() => {
-    const response = await axios.get("http://localhost:3000/messages");
-    messages.value = response.data;
-}
-
-onMounted(async () => { 
-    // this.$root.$on('update-messages', message => {
-    //     messages.push(message);
-    // })
-    try {
-      fetchData();
-    } catch (error) {
-        if(error.response) {
-            console.error('Server responded with an error:', error.response.status);
-        } else if(error.request) {
-            console.error('No response received from the server');
-        } else {
-            console.error('Error in request setup:', error.message);
+        return {
+            storeState,
+            fetchData
         }
     }
-});
+}
 </script>
 
 <style scoped>
