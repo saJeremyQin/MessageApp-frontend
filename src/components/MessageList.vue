@@ -27,25 +27,18 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axios from 'axios';
-import eventBus from "@/utils/eventBus";
-
+// import axios from 'axios';
+import { useMessageStore } from "@/stores/MessageStore";
 const messages = ref([]);
-// doesn't work, Uncaught ReferenceError: Cannot access 'fetchData' before initialization
-// eventBus.on('update-messages', fetchData); 
-eventBus.on('update-messages', () => {
-    fetchData();
-});
+const store = useMessageStore();
 
 const fetchData = async() => {
-    const response = await axios.get("http://localhost:3000/messages");
-    messages.value = response.data;
+    // const response = await axios.get("http://localhost:3000/messages");
+    // messages.value = response.data;
+    messages.value = store.getAll;
 }
 
 onMounted(async () => { 
-    // this.$root.$on('update-messages', message => {
-    //     messages.push(message);
-    // })
     try {
       fetchData();
     } catch (error) {
