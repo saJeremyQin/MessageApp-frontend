@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useMessageStore = defineStore('message', {
   state: () => ({
-    messages:[],
+    messages:["default","2023"],
   }),
   getters: {
     getAll: (state) => {

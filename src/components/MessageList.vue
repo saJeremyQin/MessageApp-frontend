@@ -2,9 +2,9 @@
     <v-row>
         <v-col 
             cols="12"
-            xs="12"
-            md="4"
-            offset-md="4"
+            xs="10"
+            md="6"
+            offset-md="3"
         >
             <v-card>
                 <v-toolbar 
