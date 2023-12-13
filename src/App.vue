@@ -1,4 +1,9 @@
 <template>
+  <v-toolbar>
+    <v-btn flat>Messages</v-btn>
+    <v-spacer></v-spacer>
+    <v-btn flat>Login</v-btn>
+  </v-toolbar>
   <NewMessage />
   <MessageList />
 </template>

@@ -1,5 +1,4 @@
 <template>
-    <v-toolbar dark title="App"></v-toolbar>
     <v-row>
         <v-col 
             cols="12"
