@@ -7,11 +7,11 @@
             md="8"
             offset-md="2"
         >
-        <v-card width="100%" class="mx-auto mt-4">
+        <v-card width="100%" class="mx-auto">
             <v-toolbar 
-                    class="text-h4 dark"
-                    title="New Message"
-                ></v-toolbar>
+                class="text-h4 dark"
+                title="New Message"
+            ></v-toolbar>
             <v-form @submit.prevent>
                 <v-text-field
                     label="Type here"
@@ -34,14 +34,19 @@
 import { ref } from "vue";
 import axios from 'axios';
 import { useMessageStore } from "@/stores/MessageStore";
+import { useRouter } from "vue-router";
 const messageBody = ref("");
 const store = useMessageStore();
+const router = useRouter();
 
 const submit = () => {
     axios.post("http://localhost:3000/messages", {message:messageBody.value}).then(
         function (response) {
             console.log(response.data);
             store.newMessage(messageBody.value);
+            router.push({
+                path:'/'     
+            })
         }
     ).catch (
         function (error) {

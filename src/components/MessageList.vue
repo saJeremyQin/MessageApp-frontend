@@ -3,8 +3,9 @@
         <v-col 
             cols="12"
             xs="10"
-            md="6"
-            offset-md="3"
+            offset-xs="1"
+            md="8"
+            offset-md="2"
         >
             <v-card>
                 <v-toolbar 
@@ -16,6 +17,7 @@
                         v-for="(message,index) in messages" 
                         :key="index"
                         class="v-list-item"
+                        :to="'messages'+'/'+index"
                     >
                         {{ message }}
                     </v-list-item>
