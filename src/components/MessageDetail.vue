@@ -33,6 +33,7 @@ export default {
 
         onMounted(() => {
             messageBody.value = store.getMsgByIndex(route.params.id);
+            console.log(messageBody.value);
         });
 
         return {

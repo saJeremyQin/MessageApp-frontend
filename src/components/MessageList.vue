@@ -19,7 +19,7 @@
                         class="v-list-item"
                         :to="'messages'+'/'+index"
                     >
-                        {{ message }}
+                        {{ message.text }}
                     </v-list-item>
                 </v-list>
             </v-card>
@@ -29,15 +29,15 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-// import axios from 'axios';
-import { useMessageStore } from "@/stores/MessageStore";
+import axios from 'axios';
+// import { useMessageStore } from "@/stores/MessageStore";
 const messages = ref([]);
-const store = useMessageStore();
+// const store = useMessageStore();
 
 const fetchData = async() => {
-    // const response = await axios.get("http://localhost:3000/messages");
-    // messages.value = response.data;
-    messages.value = store.getAll;
+    const response = await axios.get("http://localhost:3000/messages");
+    messages.value = response.data;
+    // messages.value = store.getAll;
 }
 
 onMounted(async () => { 
