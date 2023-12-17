@@ -12,9 +12,13 @@
                 class="text-h4 dark"
                 title="Message"
             ></v-toolbar>
-            <v-card-text>
-                {{ messageBody }}
-            </v-card-text>  
+          
+            <v-card-title>
+                {{ messageBody.text }}
+            </v-card-title>  
+            <v-card-subtitle>
+                {{ messageBody.user }}
+            </v-card-subtitle>   
         </v-card>
         </v-col>
     </v-row>

@@ -15,6 +15,9 @@ export const useMessageStore = defineStore('message', {
   actions:{
     newMessage(messageBody) {
       this.$state.messages.push(messageBody);
+    },
+    setMessages(messages) {
+      this.$state.messages = messages;
     }
   }
 })
