@@ -52,9 +52,10 @@ const submit = () => {
 
   axios.post('http://localhost:3000/register', registerData).then(
     function (response) {
-      let user = response.data;
-      localStorage.setItem('token',user.id);
-      axios.defaults.headers.common['Authorization'] = user.id;
+      const token = response.data;
+
+      localStorage.setItem('token', token);
+      axios.defaults.headers.common['Authorization'] = token;
     }
   ).catch (
       function (error) {
