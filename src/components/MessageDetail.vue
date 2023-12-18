@@ -35,8 +35,8 @@ export default {
         const store = useMessageStore();
         const route = useRoute();
 
-        onMounted(() => {
-            messageBody.value = store.getMsgByIndex(route.params.id);
+        onMounted(async () => {
+            messageBody.value = await store.getMsgByIndex(route.params.id);
             console.log(messageBody.value);
         });
 

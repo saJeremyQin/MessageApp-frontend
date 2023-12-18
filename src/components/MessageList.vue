@@ -34,16 +34,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axios from 'axios';
 import { useMessageStore } from "@/stores/MessageStore";
 const messages = ref([]);
 const store = useMessageStore();
 
 const fetchData = async() => {
-    const response = await axios.get("http://localhost:3000/messages");
-    messages.value = response.data;
-    console.log(response.data);
-    store.setMessages(response.data);
+    messages.value = await store.fetchMessages();
 }
 
 onMounted(async () => { 
