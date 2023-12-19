@@ -39,10 +39,10 @@
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
-// import { useMessageStore } from "@/stores/MessageStore";
-// import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/UserStore";
 const username = ref('');
 const password = ref('');
+const userStore = useUserStore();
 
 const submit = () => {
   const registerData = {
@@ -56,6 +56,7 @@ const submit = () => {
 
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = token;
+      userStore.setToken(token);
     }
   ).catch (
       function (error) {
