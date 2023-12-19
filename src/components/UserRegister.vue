@@ -40,9 +40,11 @@
 import { ref } from "vue";
 import axios from 'axios';
 import { useUserStore } from "@/stores/UserStore";
+import { useRouter } from "vue-router";
 const username = ref('');
 const password = ref('');
 const userStore = useUserStore();
+const router = useRouter();
 
 const register = () => {
   const registerData = {
@@ -57,6 +59,9 @@ const register = () => {
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = token;
       userStore.setToken(token);
+      router.push({
+        path:'/'     
+      })
     }
   ).catch (
       function (error) {
