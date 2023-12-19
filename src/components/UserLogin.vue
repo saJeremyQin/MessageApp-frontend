@@ -25,9 +25,9 @@
             <v-btn 
                 type="submit" 
                 class="mt-2 ml-2 mb-2" 
-                @click="register" 
+                @click="login" 
             >
-                Register
+                Login
             </v-btn>
         </v-col>
       </v-row>  
@@ -44,13 +44,13 @@ const username = ref('');
 const password = ref('');
 const userStore = useUserStore();
 
-const register = () => {
-  const registerData = {
+const login = () => {
+  const loginData = {
     username: username.value,
     password: password.value
   };
 
-  axios.post('http://localhost:3000/register', registerData).then(
+  axios.post('http://localhost:3000/login', loginData).then(
     function (response) {
       const token = response.data;
 

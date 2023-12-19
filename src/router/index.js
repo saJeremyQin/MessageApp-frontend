@@ -3,12 +3,14 @@ import MessageList from '../components/MessageList.vue';
 import NewMessage from '../components/NewMessage.vue';
 import MessageDetail from '../components/MessageDetail.vue';
 import UserRegister from '../components/UserRegister.vue';
+import UserLogin from '../components/UserLogin.vue'
 
 const routes = [
     { path:'/', component: MessageList },
     { path:'/newmessage', component: NewMessage },
     { path:'/messages/:id', component: MessageDetail},
     { path:'/register', component: UserRegister},
+    { path:'/login', component: UserLogin},
 ]
 
 const router = createRouter({
